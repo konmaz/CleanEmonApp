@@ -17,20 +17,70 @@
         Dashboard
     </div>
 </nav>
-<div class="container-fluid">
-    <div class="container text-center">
-        <div class="row">
+    <div class="container ">
+        <div class="row align-items-center justify-content-start">
             <div class="col">
-                Column
+                <p class="fs-1 text-success"><i class="material-icons align-middle">schedule</i> realtime data</p>
+            </div>
+            <div class="col col-4">
+                <p>5 min ago <i class="material-icons align-text-bottom spin">refresh</i></p>
             </div>
         </div>
-        <div class="row">
-                Column
+        <div id = "metadata_divs">
+        <div class="row justify-content-center">
 
+            <div class="col-4">
+                <p class="fs-3">power</p>
+            </div>
+            <div class="col-4">
+                <p class="fs-3 green ">215 Kw</p>
+<!--                <h1 aria-hidden="true">-->
+<!--                    <span class="placeholder col-10 placeholder-wave"></span>-->
+<!--                </h1>-->
+            </div>
+        </div>
         </div>
     </div>
-</div>
-<i class="material-icons">refresh</i>
+
+<script>
+
+function add(x, y) {
+    document.getElementById("metadata_divs").insertAdjacentHTML('beforeend',
+        `<div class="row justify-content-center">
+            <div class="col-4">
+                <p class="fs-3">${x}</p>
+            </div>
+            <div class="col-4">
+                <p class="fs-3 green ">${y}</p>
+            </div>
+        </div>
+  `)
+}
+
+    add("temp", "25 °C")
+    add("vrms", "263")
+    add("kwh", "755")
+add("temp", "25 °C")
+add("vrms", "263")
+add("kwh", "755")
+add("temp", "25 °C")
+add("vrms", "263")
+add("kwh", "755")
+add("temp", "25 °C")
+add("vrms", "263")
+add("kwh", "755")
+add("temp", "25 °C")
+add("vrms", "263")
+add("kwh", "755")
+
+
+</script>
+
+
+
+
+
+
 <nav class="nav">
     <a href="#" class="nav__link nav__link--active">
         <i class="material-icons nav__icon">dashboard</i>

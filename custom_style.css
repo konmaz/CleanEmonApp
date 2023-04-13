@@ -14,6 +14,10 @@ body {
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     display: flex;
     overflow-x: auto;
+
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-tertiary-bg-rgb),var(--bs-bg-opacity))!important;
+
 }
 
 .nav__link {
@@ -38,4 +42,12 @@ body {
 
 .nav__link--active {
     color: #009578;
+}
+
+.green {
+    color:rgb(0 191 99);
+}
+
+.blue {
+    color:#004AAD;
 }
