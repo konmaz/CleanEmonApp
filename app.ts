@@ -11,31 +11,33 @@ interface APIResponse {
     energy_data: EnergyData[];
 }
 function get_material_icon_by_content(x:string):string {
-    if (x.toLowerCase().includes("power"))
-        return `<i class=\"material-icons align-middle\">bolt</i>`;
-
-    else if (x.toLowerCase().includes("temp"))
-        return `<i class=\"material-icons align-middle\">thermostat</i>`;
-
-    else if (x.toLowerCase().includes("vrm"))
-        return `<i class=\"material-icons align-middle\">power_input</i>`;
-    else if (x.toLowerCase().includes("kwh"))
-        return `<i class=\"material-icons align-middle\">electric_meter</i>`;
-
-    return `<i class=\"material-icons align-middle\">remove</i>`;
+    x = x.toLowerCase();
+    switch (true) {
+        case x.includes("power"):
+            return `<i class=\"material-icons align-middle\">bolt</i>`;
+        case x.includes("temp"):
+            return `<i class=\"material-icons align-middle\">thermostat</i>`;
+        case x.includes("vrm"):
+            return `<i class=\"material-icons align-middle\">power_input</i>`;
+        case x.includes("kwh"):
+            return `<i class=\"material-icons align-middle\">electric_meter</i>`;
+        default:
+            return "";
+    }
 }
 
 function add(x: string, y: string) {
     let doc = document.getElementById("realtime_data_divs");
     if (doc){ //If doc not null
         x = get_material_icon_by_content(x)+ " "+ x;
+        y = y + " " + SI_units(x);
         doc.insertAdjacentHTML('beforeend',
         `<div class="row justify-content-center">
             <div class="col-4">
                 <p class="fs-3">${x}</p>
             </div>
             <div class="col-4">
-                <p class="fs-3 green ">${y}</p>
+                <p class="fs-3 green text-nowrap">${y}</p>
             </div>
         </div>
   `)
@@ -63,6 +65,19 @@ function epochToRelativeTime(epoch: number): string {
 }
 
 function SI_units(x:string) {
+    x = x.toLowerCase();
+    switch (true) {
+        case x.includes("power"):
+            return `W`;
+        case x.includes("temp"):
+            return `°C`;
+        case x.includes("vrm"):
+            return `V`;
+        case x.includes("kwh"):
+            return `kWh`;
+        default:
+            return "";
+    }
 
 }
 
@@ -101,4 +116,11 @@ function sendRequest(): void {
     xhr.send();
 }
 
+function metadata_put_loading(x: number) {
+
+    for (let i = 0; i < x; i++) {
+        add(`<span class="placeholder col-10">`, `<span class="placeholder col-8">`);
+    }
+}
+metadata_put_loading(4);
 sendRequest();
