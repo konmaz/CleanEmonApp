@@ -116,11 +116,19 @@ function sendRequest(): void {
     xhr.send();
 }
 
-function metadata_put_loading(x: number) {
+function realtime_data_put_placeholders(number_of_placeholders: number) {
 
-    for (let i = 0; i < x; i++) {
+    for (let i = 0; i < number_of_placeholders; i++) {
         add(`<span class="placeholder col-10">`, `<span class="placeholder col-8">`);
     }
 }
-metadata_put_loading(4);
+
+function refresh() {
+    document.getElementById("realtime_data_divs")!.innerHTML = "";
+    realtime_data_put_placeholders(4);
+    sendRequest();
+
+}
+
+realtime_data_put_placeholders(4);
 sendRequest();
