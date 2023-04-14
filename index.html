@@ -1,110 +1,95 @@
 <!doctype html>
-<html lang="en">
+<html data-bs-theme="white" lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
+    <meta content="width=device-width, initial-scale=1 user-scalable=0" name="viewport">
     <title>Bootstrap demo</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link href="custom_style.css" rel="stylesheet" crossorigin="anonymous">
+    <link crossorigin="anonymous" href="css/bootstrap.min.css"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" rel="stylesheet">
+    <link crossorigin="anonymous" href="custom_style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 
-<nav class="navbar bg-body-tertiary" >
+<nav class="navbar bg-body-tertiary ">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">CleanEmon</a>
         Dashboard
     </div>
 </nav>
-    <div class="container ">
-        <div class="row align-items-center justify-content-start">
-            <div class="col">
-                <p class="fs-1 text-success"><i class="material-icons align-middle">schedule</i> realtime data</p>
-            </div>
-            <div class="col col-4">
-                <p>5 min ago <i class="material-icons align-text-bottom spin">refresh</i></p>
-            </div>
+<div class="container ">
+    <div class="row align-items-center justify-content-start">
+        <div class="col">
+            <p class="fs-1 text-success"><i class="material-icons align-middle">schedule</i> realtime data</p>
         </div>
-        <div id = "metadata_divs">
-        <div class="row justify-content-center">
-
-            <div class="col-4">
-                <p class="fs-3">power</p>
-            </div>
-            <div class="col-4">
-                <p class="fs-3 green ">215 Kw</p>
-<!--                <h1 aria-hidden="true">-->
-<!--                    <span class="placeholder col-10 placeholder-wave"></span>-->
-<!--                </h1>-->
-            </div>
-        </div>
+        <div class="col col-4">
+            <p><span id="relative_time">5 min ago</span> <i class="material-icons align-text-bottom spin">refresh</i>
+            </p>
         </div>
     </div>
-
-<script>
-
-function add(x, y) {
-    document.getElementById("metadata_divs").insertAdjacentHTML('beforeend',
-        `<div class="row justify-content-center">
+    <div id="realtime_data_divs">
+        <div class="row justify-content-center">
             <div class="col-4">
-                <p class="fs-3">${x}</p>
+                <p class="fs-3 placeholder-glow"><span class="placeholder col-10"></span></p>
             </div>
             <div class="col-4">
-                <p class="fs-3 green ">${y}</p>
+                <p class="fs-3 green placeholder-glow"><span class="placeholder col-8"></span></p>
             </div>
         </div>
-  `)
-}
-
-    add("temp", "25 °C")
-    add("vrms", "263")
-    add("kwh", "755")
-add("temp", "25 °C")
-add("vrms", "263")
-add("kwh", "755")
-add("temp", "25 °C")
-add("vrms", "263")
-add("kwh", "755")
-add("temp", "25 °C")
-add("vrms", "263")
-add("kwh", "755")
-add("temp", "25 °C")
-add("vrms", "263")
-add("kwh", "755")
-
-
-</script>
-
-
-
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <p class="fs-3 placeholder-glow"><span class="placeholder col-10"></span></p>
+            </div>
+            <div class="col-4">
+                <p class="fs-3 green placeholder-glow"><span class="placeholder col-8"></span></p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <p class="fs-3 placeholder-glow"><span class="placeholder col-10"></span></p>
+            </div>
+            <div class="col-4">
+                <p class="fs-3 green placeholder-glow"><span class="placeholder col-8"></span></p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <p class="fs-3 placeholder-glow"><span class="placeholder col-10"></span></p>
+            </div>
+            <div class="col-4">
+                <p class="fs-3 green placeholder-glow"><span class="placeholder col-8"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="app.js"></script>
 
 
 
 <nav class="nav">
-    <a href="#" class="nav__link nav__link--active">
-        <i class="material-icons nav__icon">dashboard</i>
+    <a class="nav__link nav__link--active" href="#">
+        <i class="material-icons nav__icon">feed</i>
         <span class="nav__text">Dashboard</span>
     </a>
-    <a href="#" class="nav__link">
+    <a class="nav__link" href="#">
         <i class="material-icons nav__icon">bar_chart</i>
         <span class="nav__text">Charts</span>
     </a>
 
-    <a href="#" class="nav__link">
+    <a class="nav__link" href="#">
         <i class="material-icons nav__icon">info</i>
         <span class="nav__text">Metadata</span>
     </a>
 
-    <a href="#" class="nav__link">
+    <a class="nav__link" href="#">
         <i class="material-icons nav__icon">settings</i>
         <span class="nav__text">Settings</span>
     </a>
 </nav>
 
 
-<script src="js/bootstrap.bundle.min.js"
+<script crossorigin="anonymous"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
+        src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
