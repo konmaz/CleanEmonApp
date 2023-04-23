@@ -10,6 +10,8 @@ interface APIResponse {
     date: string;
     energy_data: EnergyData[];
 }
+const API = "http://192.168.12.42:8000";
+const DEVICE = "emon_4c5bc44b";
 function get_material_icon_by_content(x:string):string {
     x = x.toLowerCase();
     switch (true) {
@@ -26,7 +28,7 @@ function get_material_icon_by_content(x:string):string {
     }
 }
 
-function add(x: string, y: string) {
+function add_element_to_realtime_div(x: string, y: string) {
     let doc = document.getElementById("realtime_data_divs");
     if (doc){ //If doc not null
         x = get_material_icon_by_content(x)+ " "+ x;
@@ -43,10 +45,6 @@ function add(x: string, y: string) {
   `)
     }
 }
-// add("power", "215 w");
-// add("temp", "25 °C");
-// add("vrms", "243 V");
-// add("kwh", "800 kWh");
 function epochToRelativeTime(epoch: number): string {
     const secondsAgo = Math.floor((new Date().getTime() / 1000) - epoch);
     const minutesAgo = Math.floor(secondsAgo / 60);
@@ -64,16 +62,19 @@ function epochToRelativeTime(epoch: number): string {
     }
 }
 
-function SI_units(x:string) {
-    x = x.toLowerCase();
+function SI_units(name:string): string {
+    /*
+    Returns the SI_unit Watts, Celsius Volts etc according to the name provided.
+     */
+    name = name.toLowerCase();
     switch (true) {
-        case x.includes("power"):
+        case name.includes("power"):
             return `W`;
-        case x.includes("temp"):
+        case name.includes("temp"):
             return `°C`;
-        case x.includes("vrm"):
+        case name.includes("vrm"):
             return `V`;
-        case x.includes("kwh"):
+        case name.includes("kwh"):
             return `kWh`;
         default:
             return "";
@@ -81,12 +82,13 @@ function SI_units(x:string) {
 
 }
 
-function sendRequest(): void {
+function realtime_data_update_from_API(): void {
     // Create a new XMLHttpRequest object
     const xhr: XMLHttpRequest = new XMLHttpRequest();
 
     // Set the request URL and method
-    xhr.open('GET', 'http://192.168.1.11:8000/dev_id/emon_4c5bc44b/json/last_value?cache=true');
+
+    xhr.open('GET', `${API}/dev_id/${DEVICE}/json/last_value`);
 
     // Set the onload function to update the DOM element with the response
     xhr.onload = function(): void {
@@ -95,14 +97,16 @@ function sendRequest(): void {
         if (xhr.status === 200) {
             const response: APIResponse = JSON.parse(xhr.responseText);
             document.getElementById("realtime_data_divs")!.innerHTML = "";
-            x = response.energy_data[0];
+            x = response.energy_data;
             for (const item in x) {
                 if (item=== "timestamp"){
+                    // @ts-ignore
                     const epochTimestamp = Number(x[item as keyof EnergyData]);
                     document.getElementById("relative_time")!.innerHTML = epochToRelativeTime(epochTimestamp);
                     continue;
                 }
-                add(item, Number(x[item as keyof EnergyData]).toFixed(2));
+                // @ts-ignore
+                add_element_to_realtime_div(item, Number(x[item as keyof EnergyData]).toFixed(2));
             }
 
         }
@@ -119,16 +123,16 @@ function sendRequest(): void {
 function realtime_data_put_placeholders(number_of_placeholders: number) {
 
     for (let i = 0; i < number_of_placeholders; i++) {
-        add(`<span class="placeholder col-10">`, `<span class="placeholder col-8">`);
+        add_element_to_realtime_div(`<span class="placeholder col-10">`, `<span class="placeholder col-8">`);
     }
 }
 
-function refresh() {
+function realtime_data_refresh() {
     document.getElementById("realtime_data_divs")!.innerHTML = "";
     realtime_data_put_placeholders(4);
-    sendRequest();
+    realtime_data_update_from_API();
 
 }
 
 realtime_data_put_placeholders(4);
-sendRequest();
+realtime_data_update_from_API();
