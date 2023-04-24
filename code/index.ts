@@ -134,7 +134,62 @@ function realtime_data_refresh() {
     realtime_data_update_from_API();
 
 }
+function consumptions_update(api_call : string, DOM_id : string): void {
+    // Create a new XMLHttpRequest object
+    const xhr: XMLHttpRequest = new XMLHttpRequest();
+
+    // Set the request URL and method
+
+    xhr.open('GET', `${API}/dev_id/${DEVICE}/${api_call}`);
+
+    // Set the onload function to update the DOM element with the response
+    xhr.onload = function(): void {
+        if (xhr.status === 200) {
+            const response: APIResponse = JSON.parse(xhr.responseText);
+            document.getElementById(DOM_id)!.innerHTML = Number(response).toFixed(2) + " kWh";
+        }
+        //document.getElementById("realtime_data_divs")!.innerHTML = response.title;
+        else {
+            console.log('Request failed.  Returned status of ' + xhr.status);
+        }
+    };
+
+    // Send the request
+    xhr.send();
+}
+
+function date_format_ISO(inputDate :string){
+    const [day, month, year] = inputDate.split('-');
+    const date = new Date(`${year}-${month}-${day}`);
+    const formattedDate = date.toISOString().substring(0, 10);
+    return formattedDate;
+}
+
+
 
 realtime_data_put_placeholders(4);
 realtime_data_update_from_API();
+consumptions_update("json/yesterday/consumption?from_cache=false&simplify=true","cons_yesterday");
+consumptions_update("json/last_month/consumption?from_cache=false&simplify=true","cons_last_month");
+consumptions_update("json/30days/average_consumption?from_cache=false&simplify=true","cons_30_day_avg");
+
+let doc = document.getElementById("cons_date_picker");
+if (doc)
+    doc.addEventListener('change', (event) => {
+        let date_v;
+        if (event.target) {
+            let selectedText = event.target as HTMLInputElement;
+            if (selectedText.value) {
+
+                console.log(selectedText.value)
+                date_v = (selectedText.value).split('-').reverse().join('-');
+                //console.log(date_v);
+                consumptions_update(`json/date/${selectedText.value}/consumption?from_cache=false&simplify=true`, "cons_user_defined_date");
+            }
+
+        }
+
+    });
+
+
 export {};
