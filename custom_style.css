@@ -41,7 +41,8 @@ body {
 }
 
 .nav__link--active {
-    color: #009578;
+    color: var(--bs-emphasis-color);
+    font-weight: bold;
 }
 
 .green {

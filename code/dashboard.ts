@@ -1,3 +1,6 @@
+
+const API = "http://192.168.12.42:8000";
+const DEVICE = localStorage.getItem('emon_id');
 interface EnergyData {
     power: number;
     kwh: number;
@@ -10,8 +13,6 @@ interface APIResponse {
     date: string;
     energy_data: EnergyData[];
 }
-const API = "http://192.168.12.42:8000";
-const DEVICE = "emon_4c5bc44b";
 function get_material_icon_by_content(x:string):string {
     x = x.toLowerCase();
     switch (true) {
@@ -35,7 +36,7 @@ function add_element_to_realtime_div(x: string, y: string) {
         y = y + " " + SI_units(x);
         doc.insertAdjacentHTML('beforeend',
         `<div class="row justify-content-center">
-            <div class="col-4">
+            <div class="col-6">
                 <p class="fs-3">${x}</p>
             </div>
             <div class="col-4">
@@ -136,3 +137,4 @@ function realtime_data_refresh() {
 
 realtime_data_put_placeholders(4);
 realtime_data_update_from_API();
+export {};
