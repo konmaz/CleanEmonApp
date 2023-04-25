@@ -6,7 +6,7 @@ const DEVICE = localStorage.getItem('emon_id');
 
 function add_element_to_realtime_div(x, y) {
     let doc = document.getElementById("metadata_divs");
-    x = x.replaceAll("_","_<wbr>")
+    x = x.replaceAll("_","<wbr>_")
     if (doc) { //If doc not null
         doc.insertAdjacentHTML('beforeend', `<div class="row justify-content-center">
             <div class="col-6">
@@ -21,6 +21,8 @@ function add_element_to_realtime_div(x, y) {
 }
 
 function metadata_update_from_API() {
+    if (localStorage.getItem('emon_id') === null)
+        return;
     // Create a new XMLHttpRequest object
     const xhr = new XMLHttpRequest();
     // Set the request URL and method
@@ -46,4 +48,7 @@ function metadata_update_from_API() {
     xhr.send();
 }
 
-metadata_update_from_API();
+// main
+if (localStorage.getItem('emon_id')) {
+    metadata_update_from_API();
+}

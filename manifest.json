@@ -1,17 +1,37 @@
 {
   "lang": "en-us",
   "name": "Clean Emon",
-  "description": "This app lets you review your sensros.",
-  "start_url": "/",
-  "background_color": "#2f3d58",
-  "theme_color": "#2f3d58",
+  "description": "This app lets you review your sensors and get interesting statistics .",
+  "start_url": "/index.html",
+  "background_color": "#fafafa",
+  "theme_color": "#1976d2",
   "orientation": "any",
   "display": "standalone",
   "prefer_related_applications": false,
-  "icons": [{
-    "src": "logo.svg",
-    "sizes": "48x48 72x72 96x96 128x128 256x256 512x512 1024x1024",
-    "type": "image/svg+xml",
-    "purpose": "any"
-  }]
+  "icons": [
+    {
+      "src": "assets/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
 }

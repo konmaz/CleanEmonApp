@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1 user-scalable=0" name="viewport">
-    <title>CleanEmon Settings</title>
+    <title>CleanEmon Charts</title>
     <link crossorigin="anonymous" href="css/bootstrap.min.css"
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" rel="stylesheet">
     <link crossorigin="anonymous" href="custom_style.css" rel="stylesheet">
@@ -35,45 +35,27 @@
             <img src="logo.svg" alt="Logo" height="34">
 
             CleanEmon</a>
-        Settings
+        Charts
     </div>
 </nav>
-<div class="container px-4">
-    <div class="row align-items-center justify-content-start text-center">
-        <div class="col">
-            <p class="fs-1 text-success"><i class="material-icons align-middle">list</i> Set CleanEmon device</p>
-        </div>
-    </div>
+<div class="container">
     <div class="row align-items-center justify-content-start ">
         <div class="col">
-            <ul class="list-group" id="devices_list">
-<!--                <li class="list-group-item">-->
-<!--                    <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>-->
-<!--                    <label class="form-check-label stretched-link" for="firstRadio">First radio</label>-->
-<!--                </li>-->
-<!--                <li class="list-group-item">-->
-<!--                    <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="secondRadio">-->
-<!--                    <label class="form-check-label stretched-link" for="secondRadio">Second radio</label>-->
-<!--                </li>-->
-<!--                <li class="list-group-item">-->
-<!--                    <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="thirdRadio">-->
-<!--                    <label class="form-check-label stretched-link" for="thirdRadio">Third radio</label>-->
-<!--                </li>-->
-            </ul>
+            <p class="fs-1 text-success"><i class="material-icons align-middle">image</i> Charts</p>
         </div>
     </div>
+    <div >
 
-    <div>
-        <p class="text-monospace mt-5">CleanEmon App v1.0 by Konstantinos</p>
+        <div class="form-floating">
+            <input type="date" class="form-control" id="date_picker" placeholder="Date">
+            <label for="date_picker">Date</label>
+        </div>
+        <img class="img-fluid mt-3" id="img_element" style="width: 100%" >
     </div>
-
-
 </div>
 
 
-
-
-
+</div>
 
 
 <nav class="nav">
@@ -81,7 +63,7 @@
         <i class="material-icons nav__icon">feed</i>
         <span class="nav__text">Dashboard</span>
     </a>
-    <a class="nav__link" href="charts.html">
+    <a class="nav__link nav__link--active" href="charts.html">
         <i class="material-icons nav__icon">bar_chart</i>
         <span class="nav__text">Charts</span>
     </a>
@@ -91,20 +73,19 @@
         <span class="nav__text">Metadata</span>
     </a>
 
-    <a class="nav__link nav__link--active" href="settings.html">
+    <a class="nav__link" href="settings.html">
         <i class="material-icons nav__icon">settings</i>
         <span class="nav__text">Settings</span>
     </a>
 </nav>
 
 
-
 <script crossorigin="anonymous"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         src="js/bootstrap.bundle.min.js"></script>
+<script type="module"  src="code/modal.js"></script>
+<script type="module" src="code/charts.js"></script>
 
-
-<script type="module"  src="code/settings.js"></script>
 </body>
 <script>
     if ('serviceWorker' in navigator) {

@@ -130,10 +130,13 @@ function consumptions_update(api_call, DOM_id) {
     // Send the request
     xhr.send();
 }
-realtime_data_refresh();
-consumptions_update("json/yesterday/consumption?from_cache=false&simplify=true", "cons_yesterday");
-consumptions_update("json/last_month/consumption?from_cache=false&simplify=true", "cons_last_month");
-consumptions_update("json/30days/average_consumption?from_cache=false&simplify=true", "cons_30_day_avg");
+realtime_data_put_placeholders(4)
+if (localStorage.getItem('emon_id')) {
+    realtime_data_refresh();
+    consumptions_update("json/yesterday/consumption?from_cache=false&simplify=true", "cons_yesterday");
+    consumptions_update("json/last_month/consumption?from_cache=false&simplify=true", "cons_last_month");
+    consumptions_update("json/30days/average_consumption?from_cache=false&simplify=true", "cons_30_day_avg");
+}
 let refresh_button;
 refresh_button = document.getElementById("realtime_refresh_btn");
 if (refresh_button)
