@@ -43,65 +43,12 @@
         <div class="col">
             <p class="fs-1 text-success"><i class="material-icons align-middle">info</i> Metadata</p>
         </div>
-        <div class="col col-4">
-            <p><span id="relative_time"></span>
-                <button type="button" class="btn btn-outline-info btn-sm" id="realtime_refresh_btn">
-                    <i class="material-icons align-text-bottom spin">refresh</i>
-                </button>
-            </p>
-        </div>
     </div>
-    <div id="realtime_data_divs">
+    <div id="metadata_divs">
 
     </div>
 </div>
 
-<div class="container">
-    <div class="row align-items-center justify-content-start">
-        <div class="col">
-            <p class="fs-1 text-success"><i class="material-icons align-middle">insights</i> Consumptions</p>
-        </div>
-    </div>
-    <div id="views_data_divs">
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <p class="fs-4 text-nowrap"><i class="material-icons align-middle">event</i> yesterday</p>
-            </div>
-            <div class="col-4">
-                <p class="fs-3 green text-nowrap" id="cons_yesterday"><span class="placeholder col-8"></span></p>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <p class="fs-4 text-nowrap"><i class="material-icons align-middle">calendar_month</i> last month</p>
-            </div>
-            <div class="col-4">
-                <p class="fs-3 green text-nowrap" id="cons_last_month"><span class="placeholder col-8"></span></p>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <p class="fs-4 text-nowrap"><i class="material-icons align-middle">date_range</i> 30 days avg</p>
-            </div>
-            <div class="col-4">
-                <p class="fs-3 green text-nowrap" id="cons_30_day_avg"><span class="placeholder col-8"></span></p>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <input type="date" id="cons_date_picker">
-            </div>
-            <div class="col-4">
-                <p class="fs-3 green text-nowrap" id="cons_user_defined_date"><span class="placeholder col-8"></span></p>
-            </div>
-        </div>
-
-
-    </div>
-</div>
 
 
 <nav class="nav">
@@ -130,7 +77,7 @@
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         src="js/bootstrap.bundle.min.js"></script>
 <script type="module"  src="code/modal.js"></script>
-<script type="module" src="code/index.js"></script>
+<script type="module" src="code/metadata.js"></script>
 
 </body>
 <script>
