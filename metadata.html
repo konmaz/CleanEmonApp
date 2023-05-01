@@ -49,8 +49,36 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit field</h1>
+                <button type="button" class="btn-close" id="modalCloseX" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form mb-3">
+                    <input type="text" class="form-control font-monospace" id="modalInputFieldName" disabled value="Water">
+                </div>
+                <div class="form">
+                    <input type="text" class="form-control font-monospace" autofocus="autofocus" id="modalInputFieldValue">
+                </div>
+
+                    <div class="alert alert-danger mt-4 mb-0 d-none"  role="alert" id="modalErrorMessage">
+                        <i class="material-icons align-middle">error</i>
+                        <span id="modalErrorMessageText"></span>
+                    </div>
 
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="modalUpdateButton">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
 <nav class="nav">
     <a class="nav__link" href="index.html">
         <i class="material-icons nav__icon">feed</i>
