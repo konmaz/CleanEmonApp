@@ -3,7 +3,7 @@ let is_not_there;
 is_not_there = localStorage.getItem('emon_id') === null;
 window.addEventListener('load', function () {
     if (is_not_there) {
-        document.body.insertAdjacentHTML('beforeend', `<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        document.body.insertAdjacentHTML('beforeend', `<div class="modal fade" id="modal_no_settings" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,7 +20,7 @@ window.addEventListener('load', function () {
     </div>
 </div>`);
         // @ts-ignore
-        const myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+        const myModal = new bootstrap.Modal(document.getElementById('modal_no_settings'));
         myModal.show();
     }
 });
