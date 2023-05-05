@@ -62,7 +62,14 @@
                     <input type="text" class="form-control font-monospace" id="modalInputFieldName" disabled value="Water">
                 </div>
                 <div class="form">
-                    <input type="text" class="form-control font-monospace" autofocus="autofocus" id="modalInputFieldValue">
+                    <input class="form-control font-monospace" id="modalInputFieldValue" list="datalistOptions">
+                    <datalist id="datalistOptions">
+                        <option value="Semidetached">
+                        <option value="Townhome">
+                        <option value="Apartment">
+                        <option value="Family House">
+                    </datalist>
+
                 </div>
 
                     <div class="alert alert-danger mt-4 mb-0 d-none"  role="alert" id="modalErrorMessage">
@@ -108,9 +115,4 @@
 <script type="module" src="code/metadata.js"></script>
 
 </body>
-<script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js', {scope: '/'});
-    }
-</script>
 </html>

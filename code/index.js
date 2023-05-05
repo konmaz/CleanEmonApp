@@ -1,7 +1,5 @@
+import {API} from './config.js';
 
-import configJSON from './config.json' assert {type: 'json'};
-
-const API = configJSON.api;
 const DEVICE = localStorage.getItem('emon_id');
 function get_material_icon_by_content(x) {
     x = x.toLowerCase();

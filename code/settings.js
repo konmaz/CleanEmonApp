@@ -1,5 +1,4 @@
-import configJSON from './config.json' assert {type: 'json'};
-const API = configJSON.api;
+import {API} from './config.js';
 
 function get_devices_from_API() {
     // Create a new XMLHttpRequest object

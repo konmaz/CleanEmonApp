@@ -19,7 +19,6 @@ window.addEventListener('load', function () {
         </div>
     </div>
 </div>`);
-        // @ts-ignore
         const myModal = new bootstrap.Modal(document.getElementById('modal_no_settings'));
         myModal.show();
     }

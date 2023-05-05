@@ -41,10 +41,18 @@
 <div class="container">
     <div class="row align-items-center justify-content-start ">
         <div class="col">
-            <p class="fs-1 text-success"><i class="material-icons align-middle">image</i> Charts</p>
+            <p class="fs-1 text-success"><i class="material-icons align-middle">show_chart</i> 30 days</p>
         </div>
     </div>
     <div >
+        <canvas id="myChart"></canvas>
+    </div>
+    <div class="row align-items-center justify-content-start ">
+        <div class="col">
+            <p class="fs-1 text-success"><i class="material-icons align-middle">image</i> Charts</p>
+        </div>
+    </div>
+    <div>
 
         <div class="form-floating">
             <input type="date" class="form-control" id="date_picker" placeholder="Date">
@@ -54,6 +62,17 @@
 
         </div>
     </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>-->
+
+
 </div>
 
 
@@ -85,13 +104,8 @@
 <script crossorigin="anonymous"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         src="js/bootstrap.bundle.min.js"></script>
-<script type="module"  src="code/modal.js"></script>
+<script type="module" src="code/modal.js"></script>
 <script type="module" src="code/charts.js"></script>
 
 </body>
-<script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js', {scope: '/'});
-    }
-</script>
 </html>
