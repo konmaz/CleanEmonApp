@@ -1,14 +1,17 @@
 import {API} from './config.js';
 
 const DEVICE = localStorage.getItem('emon_id');
+let schema;
+
+const selectElement = document.getElementById("modalInputFieldSelect");
+const inputElement = document.getElementById("modalInputFieldValue");
+
 
 function add_element_to_realtime_div(x, y) {
     let doc = document.getElementById("metadata_divs");
     if (doc) { //If doc not null
         doc.insertAdjacentHTML('beforeend', `<div class="row justify-content-center">
             <div class="col">
-            
-            
                 <p class="fs-5 font-monospace"><button type="button" class="btn btn-outline-info btn-sm" id="${x}">
               <i class="material-icons align-text-bottom spin">edit</i>
             </button> ${x.replaceAll("_","<wbr>_")}</p>
@@ -25,7 +28,29 @@ function add_modal_listener_button(button_element, field_name, field_value){
         const myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
 
         document.getElementById('modalInputFieldName').value=field_name;
-        document.getElementById('modalInputFieldValue').value=field_value;
+        selectElement.innerHTML = "";
+        let enumValues = getEnumValues(field_name);
+        if (enumValues !== undefined){
+            for (let i = 0; i < enumValues.length; i++) {
+                const option = document.createElement("option");
+                option.textContent = enumValues[i];
+                selectElement.appendChild(option);
+
+                if (enumValues[i] === field_value) {
+                    option.selected = true;
+                }
+
+            }
+            inputElement.style.display = "none";
+            selectElement.style.display = "block";
+
+        }else{
+            inputElement.value=field_value;
+            inputElement.style.display = "block";
+            selectElement.style.display = "none";
+        }
+
+
         clearErrorMessage();
         myModal.show();
     })
@@ -101,7 +126,11 @@ function metadata_update_from_API() {
             }
 
             document.getElementById('staticBackdrop').addEventListener('shown.bs.modal', function () {
-                document.getElementById('modalInputFieldValue').focus();
+                if (inputElement.style.display !== "none")
+                    inputElement.focus();
+
+                if (selectElement.style.display !== "none")
+                    selectElement.focus();
             });
         }
         else {
@@ -114,14 +143,18 @@ function metadata_update_from_API() {
 
 // main
 if (localStorage.getItem('emon_id')) {
+    fetch_META_schema();
     metadata_update_from_API();
 
-    document.getElementById('modalUpdateButton').addEventListener('click', function() {
-        console.log(document.getElementById('modalInputFieldName').value)
-        update_metadata_field(document.getElementById('modalInputFieldName').value, document.getElementById('modalInputFieldValue').value)
+
+    document.getElementById('modalUpdateButton').addEventListener('click', function() { // when the update button is clicked on the model pop up
+        let value = inputElement.value;
+        if (inputElement.style.display === "none")
+            value = selectElement.value;
+        update_metadata_field(document.getElementById('modalInputFieldName').value, value)
     })
 
-    document.getElementById("modalInputFieldValue") // when the modal input field value is on focus and the user presses enter trigger the update button
+    inputElement // when the modal input field value is on focus and the user presses enter trigger the update button
         .addEventListener("keyup", function(event) {
             event.preventDefault();
             if (event.key === "Enter" || event.keyIdentifier === "Enter") {
@@ -129,4 +162,50 @@ if (localStorage.getItem('emon_id')) {
             }
         });
 
+}
+
+function fetch_META_schema(){
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('GET', `${API}/meta/schema`);
+
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.responseType = 'json';
+
+    xhr.onload = function() {
+
+        if (xhr.status === 200) {
+
+            schema = xhr.response;
+        } else {
+            console.error('Failed to fetch schema: ' + xhr.statusText);
+        }
+    };
+
+// Handle the onerror event, which fires if there is a network error
+    xhr.onerror = function() {
+
+        console.error('Failed to fetch schema: network error');
+    };
+
+// Send the HTTP request
+    xhr.send();
+}
+
+function getEnumValues(propertyName) {
+    const property = schema.properties[propertyName];
+    if (property && property.enum) {
+        return property.enum;
+    } else if (property && property.$ref) {
+        const refPropertyName = property.$ref.split('/').pop();
+        const refProperty = schema.definitions.sharedProperties[refPropertyName];
+        if (refProperty && refProperty.enum) {
+            return refProperty.enum;
+        }
+    }else if (property && property.type === "boolean"){
+        return [true, false]
+    }
+    return undefined;
 }
