@@ -81,6 +81,7 @@ function update_metadata_field(field, value){
     const xhr = new XMLHttpRequest();
     // Set the request URL and method
     xhr.open('GET', `${API}/dev_id/${DEVICE}/set-meta/${field}/${value}`);
+    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('bearer_token')}`);
     // Set the onload function to update the DOM element with the response
     xhr.onload = function () {
         let x;
@@ -113,6 +114,7 @@ function metadata_update_from_API() {
     const xhr = new XMLHttpRequest();
     // Set the request URL and method
     xhr.open('GET', `${API}/dev_id/${DEVICE}/meta`);
+    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('bearer_token')}`);
     // Set the onload function to update the DOM element with the response
     xhr.onload = function () {
         let x;
@@ -169,7 +171,7 @@ function fetch_META_schema(){
     const xhr = new XMLHttpRequest();
 
     xhr.open('GET', `${API}/meta/schema`);
-
+    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('bearer_token')}`);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.responseType = 'json';

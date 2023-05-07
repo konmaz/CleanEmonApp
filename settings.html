@@ -39,26 +39,23 @@
     </div>
 </nav>
 <div class="container px-4">
-    <div class="row align-items-center justify-content-start text-center">
+    <div class ="row align-items-center justify-content-start text-end mt-3 mb-1" >
+        <span style="visibility: hidden" id="account_login_info">
+            <i class="material-icons align-middle">account_circle</i> <span class="font-monospace" id="username">admin</span>
+            <button type="button" class="btn btn-outline-info btn-sm" id="logout_button" title="logout">
+              <i class="material-icons align-text-bottom spin">logout</i>
+            </button>
+
+        </span>
+    </div>
+    <div class="row align-items-center justify-content-start">
         <div class="col">
-            <p class="fs-1 text-success"><i class="material-icons align-middle">list</i> Set CleanEmon device</p>
+            <p class="fs-1 text-success">Set CleanEmon device</p>
         </div>
     </div>
     <div class="row align-items-center justify-content-start ">
         <div class="col">
             <ul class="list-group" id="devices_list">
-<!--                <li class="list-group-item">-->
-<!--                    <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>-->
-<!--                    <label class="form-check-label stretched-link" for="firstRadio">First radio</label>-->
-<!--                </li>-->
-<!--                <li class="list-group-item">-->
-<!--                    <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="secondRadio">-->
-<!--                    <label class="form-check-label stretched-link" for="secondRadio">Second radio</label>-->
-<!--                </li>-->
-<!--                <li class="list-group-item">-->
-<!--                    <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="thirdRadio">-->
-<!--                    <label class="form-check-label stretched-link" for="thirdRadio">Third radio</label>-->
-<!--                </li>-->
             </ul>
         </div>
     </div>
@@ -68,11 +65,44 @@
     </div>
 
 
+
 </div>
 
 
 
 
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="material-icons align-middle">lock</i> Login</h1>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="input_username" placeholder="Username">
+                    <label for="input_username">Username</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="input_password" placeholder="Password">
+                    <label for="input_password">Password</label>
+                </div>
+
+                <div class="alert alert-danger mt-4 mb-0 d-none"  role="alert" id="modalErrorMessage">
+                    <i class="material-icons align-middle">error</i>
+                    <span id="modalErrorMessageText"></span>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="modalUpdateButton">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

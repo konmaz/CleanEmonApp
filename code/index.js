@@ -73,6 +73,7 @@ function realtime_data_update_from_API() {
     const xhr = new XMLHttpRequest();
     // Set the request URL and method
     xhr.open('GET', `${API}/dev_id/${DEVICE}/json/last_value`);
+    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('bearer_token')}`);
     // Set the onload function to update the DOM element with the response
     xhr.onload = function () {
         let x;
@@ -114,6 +115,7 @@ function consumptions_update(api_call, DOM_id) {
     const xhr = new XMLHttpRequest();
     // Set the request URL and method
     xhr.open('GET', `${API}/dev_id/${DEVICE}/${api_call}`);
+    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('bearer_token')}`);
     // Set the onload function to update the DOM element with the response
     xhr.onload = function () {
         if (xhr.status === 200) {

@@ -5,6 +5,7 @@ const DEVICE = localStorage.getItem('emon_id');
 function image_update(date) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', `${API}/dev_id/${DEVICE}/plot/date/${date}`, true);
+    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('bearer_token')}`);
     xhr.responseType = 'blob';
 
     xhr.onloadstart = function () {
@@ -67,7 +68,11 @@ async function fetch_30_days_daily_consumptions() {
 
     const requests = dateStrings.map(dateString => {
         const url = baseUrl.replace('DATE?', dateString);
-        return fetch(url);
+        return fetch(url,{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('bearer_token')}`
+                }}
+            );
     });
 
     const responses = await Promise.all(requests);
