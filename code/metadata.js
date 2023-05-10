@@ -17,7 +17,7 @@ function add_element_to_realtime_div(x, y) {
             </button> ${x.replaceAll("_","<wbr>_")}</p>
             </div>
             <div class="col-5">
-                <p class="fs-5 green font-monospace">${y}</p>
+                <p class="fs-5 green font-monospace ">${y}</p>
             </div>
         </div>
   `);
