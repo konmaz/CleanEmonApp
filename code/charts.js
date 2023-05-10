@@ -35,8 +35,7 @@ function image_update(date) {
 function formatDate(dateString) {
     const date = new Date(dateString);
     const options = {day: 'numeric', month: 'short'};
-    const formattedDate = date.toLocaleDateString('en-UK', options);
-    return formattedDate;
+    return date.toLocaleDateString('en-UK', options);
 }
 
 

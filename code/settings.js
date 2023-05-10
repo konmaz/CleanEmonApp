@@ -87,9 +87,6 @@ window.addEventListener('load', function () {
 
 });
 
-document.getElementById('staticBackdrop').addEventListener('shown.bs.modal', function () {
-    document.getElementById("input_username").focus();
-});
 
 
 
