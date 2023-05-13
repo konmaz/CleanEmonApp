@@ -84,19 +84,16 @@ function update_metadata_field(field, value){
     xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('bearer_token')}`);
     // Set the onload function to update the DOM element with the response
     xhr.onload = function () {
-        let x;
         if (xhr.status === 200) {
             const response = JSON.parse(xhr.responseText);
-            x = response;
-            console.log(x);
+            console.log(response);
             hide_modal();
             metadata_update_from_API();
         }
         else if (xhr.status === 400) {
             const response = JSON.parse(xhr.responseText);
-            x = response;
-            console.log(x);
-            showErrorMessage(x.message);
+            console.log(response);
+            showErrorMessage(response.message);
         }
         else {
             console.log('Request failed.  Returned status of ' + xhr.status);
