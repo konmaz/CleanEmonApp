@@ -97,11 +97,15 @@ function update_metadata_field(field, value){
             x = response;
             console.log(x);
             showErrorMessage(x.message);
-
         }
         else {
             console.log('Request failed.  Returned status of ' + xhr.status);
         }
+    };
+    xhr.onerror = function() {
+        console.log('Request failed. ' + xhr.statusText);
+        alert("Check your internet connection")
+        showErrorMessage('Request failed. ' + xhr.statusText);
     };
     // Send the request
     xhr.send();

@@ -23,13 +23,15 @@ function insertModalHTML(){
                 </div>
 
                 <div class="alert alert-danger mt-4 mb-0 d-none"  role="alert" id="modalErrorMessage">
-                    <i class="material-icons align-middle">error</i>
+                    <i class="material-icons align-middle">warning</i>
                     <span id="modalErrorMessageText"></span>
                 </div>
 
 
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer justify-content-between">
+            <a href="register.html">
+                <button type="button" class="btn btn-outline-secondary" id="register">Register</button></a>
                 <button type="button" class="btn btn-primary" id="modalUpdateButton">Login</button>
             </div>
         </div>

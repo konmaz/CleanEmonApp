@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1 user-scalable=0" name="viewport">
-    <title>Metadata - CleanEmon</title>
+    <title>Settings - CleanEmon</title>
     <link crossorigin="anonymous" href="css/bootstrap.min.css"
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" rel="stylesheet">
     <link crossorigin="anonymous" href="custom_style.css" rel="stylesheet">
@@ -35,56 +35,53 @@
             <img src="logo.svg" alt="Logo" height="34">
 
             CleanEmon</a>
-        Metadata
+        Register
     </div>
 </nav>
-<div class="container">
-    <div class="row align-items-center justify-content-start ">
+<div class="container px-4">
+
+    <div class="row align-items-center justify-content-start mt-4">
         <div class="col">
-            <p class="fs-1 text-success"><i class="material-icons align-middle">info</i> Metadata</p>
+            <p class="fs-1 text-success"> <i class="material-icons align-middle">privacy_tip</i> Register</p>
         </div>
     </div>
-    <div id="metadata_divs">
-        No metadata to show
+    <div class="alert alert-warning mt-1 mb-3" role="alert">
+        <i class="material-icons align-middle">info</i>
+        The account has to be activated by the administrator before it can be used.
     </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit field</h1>
-                <button type="button" class="btn-close" id="modalCloseX" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form mb-3">
-                    <input type="text" class="form-control font-monospace" id="modalInputFieldName" disabled value="Water">
-                </div>
-                <div class="form" id="modalInputDiv">
-                    <input class="form-control font-monospace" id="modalInputFieldValue">
-
-                    <select class="form-select font-monospace" id="modalInputFieldSelect">
-                        <option>Yes</option>
-                    </select>
-
-                </div>
-
-
-                    <div class="alert alert-danger mt-4 mb-0 d-none"  role="alert" id="modalErrorMessage">
-                        <i class="material-icons align-middle">error</i>
-                        <span id="modalErrorMessageText"></span>
-                    </div>
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="modalUpdateButton">Update</button>
-            </div>
+    <div>
+        <form id="login-form">
+        <div class="form-floating ">
+            <input type="text" class="form-control" id="username" placeholder="Username" autocapitalize="off" autofocus>
+            <label for="username">Username</label>
+            <div id="usernameHelp" class="form-text">The username should be lowercase and without special characters</div>
         </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="password" placeholder="Password">
+            <label for="password">Password</label>
+        </div>
+
+        <div class="mt-2">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        </form>
+        <div id="messagePlaceholder">
+        </div>
+
     </div>
+
+
+
+
+
 </div>
+
+
+
+
+
+
+
 <nav class="nav">
     <a class="nav__link" href="index.html">
         <i class="material-icons nav__icon">feed</i>
@@ -95,7 +92,7 @@
         <span class="nav__text">Charts</span>
     </a>
 
-    <a class="nav__link  nav__link--active" href="metadata.html">
+    <a class="nav__link" href="metadata.html">
         <i class="material-icons nav__icon">info</i>
         <span class="nav__text">Metadata</span>
     </a>
@@ -107,11 +104,11 @@
 </nav>
 
 
+
 <script crossorigin="anonymous"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         src="js/bootstrap.bundle.min.js"></script>
-<script type="module"  src="code/modal.js"></script>
-<script type="module" src="code/metadata.js"></script>
+<script type="module" src="code/register.js"></script>
 
 </body>
 </html>

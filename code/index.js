@@ -101,7 +101,7 @@ function realtime_data_update_from_API() {
 function checkStatus(response) {
     if (response.status >= 200 && response.status < 300) {
         return Promise.resolve(response);
-    } else if(response.status >= 401){
+    } else if(response.status >= 400){
         console.log('Credentials expired!')
         localStorage.clear();
         location.reload();
@@ -128,6 +128,11 @@ function realtime_data_refresh() {
 }
 
 function consumptions_update(api_call, DOM_id) {
+    if (!navigator.onLine) {
+        document.getElementById(DOM_id).innerHTML = "Offline";
+        return;
+    }
+    document.getElementById(DOM_id).innerHTML = `<span class="spinner-border text-primary"></span>`
     fetch(`${API}/dev_id/${DEVICE}/${api_call}`, {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('bearer_token')}`
@@ -140,6 +145,7 @@ function consumptions_update(api_call, DOM_id) {
         })
         .catch(function (error) {
             console.log('Request failed', error);
+            document.getElementById(DOM_id).innerHTML = `<p class="text-danger">Offline</p>`;
         });
 }
 

@@ -107,7 +107,7 @@ self.addEventListener('fetch', event => {
         event.request.url.startsWith('chrome-extension') ||
         event.request.url.includes('extension') ||
         event.request.url.startsWith('/api/') ||
-        event.request.url.startsWith('/dev')
+        event.request.url.startsWith('/dev_id')
     ) return;
     return; //disable service worker for now
     event.respondWith((async () => {
