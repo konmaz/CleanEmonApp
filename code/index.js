@@ -101,7 +101,7 @@ function realtime_data_update_from_API() {
 function checkStatus(response) {
     if (response.status >= 200 && response.status < 300) {
         return Promise.resolve(response);
-    } else if(response.status >= 400){
+    } else if(response.status === 401){
         console.log('Credentials expired!')
         localStorage.clear();
         location.reload();
@@ -145,7 +145,7 @@ function consumptions_update(api_call, DOM_id) {
         })
         .catch(function (error) {
             console.log('Request failed', error);
-            document.getElementById(DOM_id).innerHTML = `<p class="text-danger">Offline</p>`;
+            document.getElementById(DOM_id).innerHTML = `<p class="text-danger">-</p>`;
         });
 }
 

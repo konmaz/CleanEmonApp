@@ -106,10 +106,9 @@ self.addEventListener('fetch', event => {
     if (
         event.request.url.startsWith('chrome-extension') ||
         event.request.url.includes('extension') ||
-        event.request.url.startsWith('/api/') ||
-        event.request.url.startsWith('/dev_id')
+        event.request.url.includes('/api')
     ) return;
-    return; //disable service worker for now
+    // return; //disable service worker when you are working in local dev environment
     event.respondWith((async () => {
         const cache = await caches.open(CACHE_NAME);
         const cachedResponse = await cache.match(event.request);

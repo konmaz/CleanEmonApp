@@ -109,6 +109,26 @@
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         src="js/bootstrap.bundle.min.js"></script>
 <script type="module" src="code/register.js"></script>
-
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(reg => {
+            reg.addEventListener('updatefound', () => {
+                const newWorker = reg.installing;
+                newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed') {
+                        if (navigator.serviceWorker.controller) {
+                            // Show update pop-up
+                            console.log('New content is available; please refresh.');
+                        } else {
+                            console.log('Content is cached for offline use.');
+                        }
+                    }
+                });
+            });
+        }).catch(error => {
+            console.error('Error during service worker registration:', error);
+        });
+    }
+</script>
 </body>
 </html>

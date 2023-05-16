@@ -57,7 +57,7 @@ async function fetch_30_days_daily_consumptions() {
     const today = new Date();
     const dateStrings = [];
 
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 30; i++) {
         const date = new Date(today);
         date.setDate(today.getDate() - i);
         const dateString = date.toISOString().substr(0, 10);
