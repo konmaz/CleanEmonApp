@@ -30,7 +30,14 @@ function add_modal_listener_button(button_element, field_name, field_value){
         document.getElementById('modalInputFieldName').value=field_name;
         selectElement.innerHTML = "";
         let enumValues = getEnumValues(field_name);
-        if (enumValues !== undefined){
+        if(enumValues === -1) {
+            inputElement.setAttribute('type', 'number');
+            inputElement.value=field_value;
+            inputElement.style.display = "block";
+            selectElement.style.display = "none";
+
+        }
+        else if (enumValues !== undefined){
             for (let i = 0; i < enumValues.length; i++) {
                 const option = document.createElement("option");
                 option.textContent = enumValues[i];
@@ -44,7 +51,9 @@ function add_modal_listener_button(button_element, field_name, field_value){
             inputElement.style.display = "none";
             selectElement.style.display = "block";
 
-        }else{
+        }
+        else{
+            inputElement.setAttribute('type', 'text');
             inputElement.value=field_value;
             inputElement.style.display = "block";
             selectElement.style.display = "none";
@@ -208,7 +217,9 @@ function getEnumValues(propertyName) {
             return refProperty.enum;
         }
     }else if (property && property.type === "boolean"){
-        return [true, false]
+        return [true, false];
+    }else if (property && property.type === "integer" || property.type === 'float' || property.type === 'number'){
+        return -1;
     }
     return undefined;
 }
