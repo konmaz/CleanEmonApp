@@ -4,9 +4,8 @@ const DEVICE = localStorage.getItem('emon_id');
 
 function image_update(date) {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `${API}/dev_id/${DEVICE}/plot/date/${date}`, true);
+    xhr.open('GET', `${API}/dev_id/${DEVICE}/json/date/${date}`, true);
     xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('bearer_token')}`);
-    xhr.responseType = 'blob';
 
     xhr.onloadstart = function () {
         const loadingText = document.getElementById('image-placeholder');
@@ -17,12 +16,16 @@ function image_update(date) {
 
     xhr.onload = function () {
         if (this.status === 200) {
-            const myImage = new Image();
-            myImage.src = window.URL.createObjectURL(this.response);
-            myImage.className = "img-fluid mt-3";
-            myImage.style['width'] = '100%';
+            // console.log(JSON.parse(xhr.responseText).energy_data);
+
+            plot_sensor_data(JSON.parse(xhr.responseText).energy_data);
+
+            // const myImage = new Image();
+            // myImage.src = window.URL.createObjectURL(this.response);
+            // myImage.className = "img-fluid mt-3";
+            // myImage.style['width'] = '100%';
             document.getElementById('image-placeholder').innerHTML = "";
-            document.getElementById('image-placeholder').appendChild(myImage);
+            // document.getElementById('image-placeholder').appendChild(myImage);
         }
     };
 
@@ -134,10 +137,89 @@ function plot_30_days_daily_consumptions(dates, values) {
     });
 }
 
+let dayChartObj;
+dayChartObj = null;
+
+function plot_sensor_data(higher_resolution_data) {
+    var lower_resolution_data = [];
+
+    for (let i = 0; i < higher_resolution_data.length; i += 60 / 5) { // try to reduce the resolution
+        lower_resolution_data.push(higher_resolution_data[i]);
+    }
+    let data = lower_resolution_data;
+
+
+    if (dayChartObj !== null) {
+        dayChartObj.destroy();
+    }
+    var dates = data.map(function(entry) {
+        var timestamp = entry.timestamp * 1000; // Convert Unix epoch to milliseconds
+        var date = new Date(timestamp);
+        return date;
+    });
+
+    var datasets = [];
+    var sensorKeys = Object.keys(data[0]).filter(function(key) {
+        return key !== 'timestamp' && key !== 'original_timestamp';
+    });
+
+    sensorKeys.forEach(function(key) {
+        var values = data.map(function(entry) {
+            return entry[key];
+        });
+        if (key === 'kwh' || key=='vrms' || key == 'temp'){ // hide those by default
+            var dataset = {
+                data: values,
+                label: key,
+                hidden :true
+            };
+        }else{
+            var dataset = {
+                data: values,
+                label: key,
+            };
+        }
+
+        datasets.push(dataset);
+
+    });
+
+    var ctx = document.getElementById('dayChart').getContext('2d');
+    dayChartObj = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            aspectRatio: 1/2,
+            scales: {
+                x: {
+                    type: 'time',
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Sensor Data'
+                }
+            }
+        }
+    });
+}
+//
+
+
 async function fetch_and_plot_30_days_daily_consumptions() {
     const {dates, values} = await fetch_30_days_daily_consumptions();
     const formattedDates = dates.map(date => formatDate(date));
     plot_30_days_daily_consumptions(formattedDates, values);
 }
 
-fetch_and_plot_30_days_daily_consumptions();
+// fetch_and_plot_30_days_daily_consumptions();
