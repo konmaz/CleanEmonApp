@@ -66,6 +66,12 @@
         </div>
     </div>
 
+    <div class="row mt-5">
+        <div class="col d-grid gap-2">
+            <button type="button" class="btn btn-primary btn-lg" id ="clear_caches"><i class="material-icons align-middle">delete_sweep</i> Clear cache</button>
+        </div>
+    </div>
+
     <div class="row" style="margin-top: 15em">
         <p class="text-monospace ">CleanEmon App v1.0 by <a href="https://github.com/konmaz">konmaz</a></p>
     </div>
@@ -99,6 +105,13 @@
             deferredPrompt = null;
             // Hide the install button
             installButton.style.display = 'none';
+        });
+    });
+
+    document.getElementById('clear_caches').addEventListener('click', (e) => {
+        caches.keys().then(function(names) {
+            for (let name of names)
+                caches.delete(name);
         });
     });
 </script>

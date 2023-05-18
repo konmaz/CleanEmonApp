@@ -172,8 +172,14 @@ if (localStorage.getItem('emon_id')) {
     consumptions_update("json/yesterday/consumption?from_cache=false&simplify=true", "cons_yesterday");
     consumptions_update("json/last_month/consumption?from_cache=false&simplify=true", "cons_last_month");
     consumptions_update("json/30days/average_consumption?from_cache=false&simplify=true", "cons_30_day_avg");
-    var today = new Date().toISOString().substring(0, 10);
-    var datepicker = document.getElementById('cons_date_picker');
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+
+    const datepicker = document.getElementById('cons_date_picker');
     datepicker.value = today;
     datepicker.dispatchEvent(new Event('change'));
 
