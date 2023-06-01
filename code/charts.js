@@ -2,9 +2,9 @@ import {API} from './config.js';
 
 const DEVICE = localStorage.getItem('emon_id');
 
-function image_update(date) {
+function single_day_consumption(date) {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `${API}/dev_id/${DEVICE}/json/date/${date}`, true);
+    xhr.open('GET', `${API}/dev_id/${DEVICE}/json/date/${date}?downsampling=true`, true);
     xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('bearer_token')}`);
 
     xhr.onloadstart = function () {
@@ -17,108 +17,126 @@ function image_update(date) {
     xhr.onload = function () {
         if (this.status === 200) {
             // console.log(JSON.parse(xhr.responseText).energy_data);
+            let data;
+            data = JSON.parse(xhr.responseText).energy_data
+            if (data.length !== 0) {
 
-            plot_sensor_data(JSON.parse(xhr.responseText).energy_data);
+                console.log(data)
+                plot_sensor_data(data);
+                document.getElementById('image-placeholder').innerHTML = "";
 
-            // const myImage = new Image();
-            // myImage.src = window.URL.createObjectURL(this.response);
-            // myImage.className = "img-fluid mt-3";
-            // myImage.style['width'] = '100%';
-            document.getElementById('image-placeholder').innerHTML = "";
-            // document.getElementById('image-placeholder').appendChild(myImage);
+            } else {
+                if (dayChartObj !== null) {
+                    dayChartObj.destroy();
+                }
+                document.getElementById('image-placeholder').innerHTML = "No data for this date";
+            }
         }
     };
-
     xhr.send();
-
-
-    //document.getElementById("img_element").src = `${API}/dev_id/${DEVICE}/plot/date/${date}`;
 }
-
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    const options = {day: 'numeric', month: 'short'};
-    return date.toLocaleDateString('en-UK', options);
-}
-
-
 let doc = document.getElementById("date_picker");
 if (doc)
     doc.addEventListener('change', (event) => {
         if (event.target) {
             let selectedText = event.target;
             if (selectedText.value) {
-                image_update(selectedText.value);
+                single_day_consumption(selectedText.value);
             }
 
         }
     });
 
-async function fetch_30_days_daily_consumptions() {
-    const baseUrl = `${API}/dev_id/${DEVICE}/json/date/DATE?/consumption?from_cache=false&simplify=true`;
+
+function fetch_consumptions(number_of_days) {
 
     const today = new Date();
-    const dateStrings = [];
+    const isoDateToday = today.toISOString().split('T')[0];
 
-    for (let i = 0; i < 30; i++) {
-        const date = new Date(today);
-        date.setDate(today.getDate() - i);
-        const dateString = date.toISOString().substr(0, 10);
-        dateStrings.push(dateString);
+// Get the ISO date of X days before
+    const XDaysAgo = new Date(today.setDate(today.getDate() - (number_of_days - 1)));
+    let from = XDaysAgo.toISOString().split('T')[0];
+    let until = isoDateToday;
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `${API}/dev_id/${DEVICE}/days_consumptions/range/${from}/${until}?summarize=false`, true);
+    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('bearer_token')}`);
+
+    xhr.onloadstart = function () {
+        const loadingText = document.getElementById('image-placeholder_consumption_history');
+        loadingText.innerHTML = `<div class="spinner-border text-primary mt-5" role="status" style="width:5rem; height: 5rem" >
+  <span class="visually-hidden">Loading...</span>
+</div>`;
+    };
+
+    xhr.onload = function () {
+        if (this.status === 200) {
+            // console.log(JSON.parse(xhr.responseText).energy_data);
+            let data;
+            data = JSON.parse(xhr.responseText)
+            if (data.length !== 0) {
+
+                const keys = [];
+                const values = [];
+
+                for (let i = 0; i < data.length; i++) {
+                    keys.push(data[i].key);
+                    values.push(data[i].value);
+                }
+                console.log(data)
+                plot_multiple_days_consumption(keys, values);
+                document.getElementById('image-placeholder_consumption_history').innerHTML = "";
+
+            } else {
+                if (dayChartObj !== null) {
+                    dayChartObj.destroy();
+                }
+                document.getElementById('image-placeholder_consumption_history').innerHTML = "No data";
+            }
+        }
+    };
+
+    xhr.send();
+
+}
+let consumption_history_chart_obj;
+consumption_history_chart_obj = null
+
+function plot_multiple_days_consumption(dates, values) {
+    if (consumption_history_chart_obj !== null) {
+        consumption_history_chart_obj.destroy();
     }
-    dateStrings.reverse();
 
-    const requests = dateStrings.map(dateString => {
-        const url = baseUrl.replace('DATE?', dateString);
-        return fetch(url,{
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('bearer_token')}`
-                }}
-            );
+    const datesFormatted = dates.map(function (entry) {
+        const date = new Date(entry);
+        const day = date.getDate();
+        const month = date.toLocaleString('default', { month: 'short' });
+        return `${day} ${month}`;
     });
 
-    const responses = await Promise.all(requests);
-
-    const dates = [];
-    const values = [];
-
-    for (let i = 0; i < responses.length; i++) {
-        const response = responses[i];
-        const data = await response.text();
-        const value = parseFloat(data);
-        dates.push(dateStrings[i]);
-        values.push(value);
-    }
-
-    return {dates, values};
-}
-
-function plot_30_days_daily_consumptions(dates, values) {
-    var ctx = document.getElementById('myChart').getContext('2d');
+    var ctx = document.getElementById('consumption_history_canvas').getContext('2d');
     // Chart.defaults.color = getComputedStyle(document.body).getPropertyValue('--bs-emphasis-color');
-    var myChart = new Chart(ctx, {
+    consumption_history_chart_obj = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: dates,
+            labels: datesFormatted,
             datasets: [{
                 data: values,
-                cubicInterpolationMode: 'monotone',
-                label : 'kWh'
+                label: 'kWh'
             }]
         },
         options: {
-            responsive:true,
+            responsive: true,
             maintainAspectRatio: false,
             aspectRatio: 1,
+
             scales: {
                 x: {
-                    ticks: {
-                        // For a category axis, the val is the index so the lookup via getLabelForValue is needed
-                        callback: function(val, index) {
-                            // Hide every 2nd tick label
-                            return index % 2 === 0 ? this.getLabelForValue(val) : '';
-                        }
+                    title: {
+                        display: true,
+                        text: 'Date'
                     }
+
                 }
             },
 
@@ -128,7 +146,7 @@ function plot_30_days_daily_consumptions(dates, values) {
                 },
                 title: {
                     display: true,
-                    text: '30-day daily consumption history'
+                    text: `${dates.length}-days consumption history`
 
                 }
             }
@@ -140,41 +158,34 @@ function plot_30_days_daily_consumptions(dates, values) {
 let dayChartObj;
 dayChartObj = null;
 
-function plot_sensor_data(higher_resolution_data) {
-    var lower_resolution_data = [];
-
-    for (let i = 0; i < higher_resolution_data.length; i += 60 / 5) { // try to reduce the resolution
-        lower_resolution_data.push(higher_resolution_data[i]);
-    }
-    let data = lower_resolution_data;
-
-
+function plot_sensor_data(data) {
     if (dayChartObj !== null) {
         dayChartObj.destroy();
     }
-    var dates = data.map(function(entry) {
-        var timestamp = entry.timestamp * 1000; // Convert Unix epoch to milliseconds
-        var date = new Date(timestamp);
+    let dates = data.map(function (entry) {
+        let timestamp = entry.timestamp * 1000; // Convert Unix epoch to milliseconds
+        let date = new Date(timestamp);
         return date;
     });
 
-    var datasets = [];
-    var sensorKeys = Object.keys(data[0]).filter(function(key) {
+    let datasets = [];
+    let sensorKeys = Object.keys(data[0]).filter(function (key) {
         return key !== 'timestamp' && key !== 'original_timestamp';
     });
 
-    sensorKeys.forEach(function(key) {
-        var values = data.map(function(entry) {
+    sensorKeys.forEach(function (key) {
+        let dataset;
+        const values = data.map(function (entry) {
             return entry[key];
         });
-        if (key === 'kwh' || key=='vrms' || key == 'temp'){ // hide those by default
-            var dataset = {
+        if (key === 'kwh' || key === 'vrms' || key === 'temp' || key === 'noise' || key.startsWith("pred")) { // hide those by default
+            dataset = {
                 data: values,
                 label: key,
-                hidden :true
+                hidden: true
             };
-        }else{
-            var dataset = {
+        } else {
+            dataset = {
                 data: values,
                 label: key,
             };
@@ -194,7 +205,13 @@ function plot_sensor_data(higher_resolution_data) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            aspectRatio: 1/2,
+            aspectRatio: 1,
+            elements: {
+                point: {
+                    radius: 0 // default to disabled in all datasets
+                }
+            },
+
             scales: {
                 x: {
                     type: 'time',
@@ -213,13 +230,29 @@ function plot_sensor_data(higher_resolution_data) {
         }
     });
 }
-//
+
+const buttonGroup = document.querySelector('.btn-group-toggle');
+
+// Add event listener to the parent div
+buttonGroup.addEventListener('click', function (event) {
+    // Check if the clicked element is a radio button
+    if (event.target.classList.contains('btn-check')) {
+        // Code to execute when a button is clicked
+        fetch_consumptions(event.target.value);
+        // Add your custom logic here
+    }
+});
 
 
-async function fetch_and_plot_30_days_daily_consumptions() {
-    const {dates, values} = await fetch_30_days_daily_consumptions();
-    const formattedDates = dates.map(date => formatDate(date));
-    plot_30_days_daily_consumptions(formattedDates, values);
-}
+fetch_consumptions(7);
 
-// fetch_and_plot_30_days_daily_consumptions();
+const date = new Date();
+let currentDay= String(date.getDate()).padStart(2, '0');
+let currentMonth = String(date.getMonth()+1).padStart(2,"0");
+let currentYear = date.getFullYear();
+let currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
+
+
+var datepicker = document.getElementById('date_picker');
+datepicker.value = currentDate;
+datepicker.dispatchEvent(new Event('change'));

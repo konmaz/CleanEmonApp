@@ -39,17 +39,41 @@
     </div>
 </nav>
 <div class="container">
-    <div class="row align-items-center justify-content-start ">
+    <div class="row align-items-center justify-content-end">
         <div class="col">
-            <p class="fs-1 text-success"><i class="material-icons align-middle">show_chart</i> 30 days</p>
+            <p class="fs-1 text-success text-nowrap"><i class="material-icons align-middle">history show_chart</i> Consumption history</p>
         </div>
+        <div class="col col-auto">
+            <div class="btn-group-toggle" data-toggle="buttons">
+                <input type="radio" class="btn-check" name="inlineRadioOptions" id="inlineRadio1" value="360" autocomplete="off">
+                <label class="btn btn-outline-primary" for="inlineRadio1">1Y</label>
+
+                <input type="radio" class="btn-check" name="inlineRadioOptions" id="inlineRadio2" value="180" autocomplete="off">
+                <label class="btn btn-outline-primary" for="inlineRadio2">6M</label>
+
+                <input type="radio" class="btn-check" name="inlineRadioOptions" id="inlineRadio3"  value="90"autocomplete="off">
+                <label class="btn btn-outline-primary" for="inlineRadio3">3M</label>
+
+                <input type="radio" class="btn-check" name="inlineRadioOptions" id="inlineRadio4" value="30" autocomplete="off">
+                <label class="btn btn-outline-primary" for="inlineRadio4">1M</label>
+
+                <input type="radio" class="btn-check" name="inlineRadioOptions" id="inlineRadio5" value="7" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="inlineRadio5">1W</label>
+            </div>
+
+        </div>
+
+
+
     </div>
-    <div>
-        <canvas id="myChart"></canvas>
+    <div id="image-placeholder_consumption_history" class="d-flex justify-content-center">
+    </div>
+    <div class="chart-container" style="position: relative;">
+        <canvas id="consumption_history_canvas"></canvas>
     </div>
     <div class="row align-items-center justify-content-start ">
         <div class="col">
-            <p class="fs-1 text-success"><i class="material-icons align-middle">image</i> Charts</p>
+            <p class="fs-1 text-success"><i class="material-icons align-middle">today show_chart</i> Single Day View</p>
         </div>
     </div>
     <div>
@@ -67,10 +91,37 @@
         <canvas id="dayChart"></canvas>
     </div>
 
+    <div class="row align-items-center justify-content-end">
+        <div class="col">
+            <p class="fs-2 text-success text-nowrap"><i class="material-icons align-middle">show_chart</i> Appliances Consumptions</p>
+        </div>
+    </div>
+
+    <div class="row align-items-center">
+        <div class="col">
+            <div class="form-floating">
+                <input type="date" class="form-control" id="appliances_date_picker_start" placeholder="Date">
+                <label for="appliances_date_picker_start">Start date</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating">
+                <input type="date" class="form-control" id="appliances_date_picker_end" placeholder="Date">
+                <label for="appliances_date_picker_end">End date</label>
+            </div>
+        </div>
+
+        <div class = "col-auto">
+            <button type="button" class="btn btn-primary btn-lg"><i class="material-icons align-middle">query_stats</i></button>
+        </div>
+    </div>
+
 
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/2.0.1/chartjs-plugin-zoom.min.js" integrity="sha512-wUYbRPLV5zs6IqvWd88HIqZU/b8TBx+I8LEioQ/UC0t5EMCLApqhIAnUg7EsAzdbhhdgW07TqYDdH3QEXRcPOQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </div>
 

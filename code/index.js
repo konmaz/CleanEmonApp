@@ -159,7 +159,7 @@ if (doc)
         if (event.target) {
             let selectedText = event.target;
             if (selectedText.value) {
-                consumptions_update(`json/date/${selectedText.value}/consumption?from_cache=false&simplify=true`, "cons_user_defined_date");
+                consumptions_update(`json/date/${selectedText.value}/consumption?simplify=true`, "cons_user_defined_date");
             } else {
                 document.getElementById('cons_user_defined_date').innerHTML = "<span class=\"placeholder w-100\"></span>";
             }
@@ -169,12 +169,16 @@ if (doc)
 realtime_data_put_placeholders(4)
 if (localStorage.getItem('emon_id')) {
     realtime_data_refresh();
-    consumptions_update("json/yesterday/consumption?from_cache=false&simplify=true", "cons_yesterday");
-    consumptions_update("json/last_month/consumption?from_cache=false&simplify=true", "cons_last_month");
-    consumptions_update("json/30days/average_consumption?from_cache=false&simplify=true", "cons_30_day_avg");
-    var today = new Date().toISOString().substring(0, 10);
+    consumptions_update("json/yesterday/consumption?simplify=true", "cons_yesterday");
+    consumptions_update("json/last_month/consumption?simplify=true", "cons_last_month");
+    consumptions_update("json/30days/average_consumption?simplify=true", "cons_30_day_avg");
+    const date = new Date();
+    let currentDay= String(date.getDate()).padStart(2, '0');
+    let currentMonth = String(date.getMonth()+1).padStart(2,"0");
+    let currentYear = date.getFullYear();
+    let currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
     var datepicker = document.getElementById('cons_date_picker');
-    datepicker.value = today;
+    datepicker.value = currentDate;
     datepicker.dispatchEvent(new Event('change'));
 
 
