@@ -177,7 +177,7 @@ if (localStorage.getItem('emon_id')) {
     let currentMonth = String(date.getMonth()+1).padStart(2,"0");
     let currentYear = date.getFullYear();
     let currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
-    var datepicker = document.getElementById('cons_date_picker');
+    const datepicker = document.getElementById('cons_date_picker');
     datepicker.value = currentDate;
     datepicker.dispatchEvent(new Event('change'));
 

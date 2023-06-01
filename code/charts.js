@@ -165,8 +165,7 @@ function plot_sensor_data(data) {
     }
     let dates = data.map(function (entry) {
         let timestamp = entry.timestamp * 1000; // Convert Unix epoch to milliseconds
-        let date = new Date(timestamp);
-        return date;
+        return new Date(timestamp);
     });
 
     let datasets = [];
@@ -251,9 +250,7 @@ function dateToISO(date){
     let currentDay= String(date.getDate()).padStart(2, '0');
     let currentMonth = String(date.getMonth()+1).padStart(2,"0");
     let currentYear = date.getFullYear();
-    let currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
-
-    return currentDate;
+    return `${currentYear}-${currentMonth}-${currentDay}`;
 }
 
 
@@ -291,7 +288,7 @@ function appliances_consumptions_list(start,end) {
             console.log(data)
 
             for(const key in data){
-                let key_formatted = key.replaceAll("_", " ").replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());;
+                let key_formatted = key.replaceAll("_", " ").replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
                 if (key.startsWith('pred'))
                     key_formatted = key_formatted.substring(4);
 
@@ -333,14 +330,12 @@ function appliances_consumptions_graph(start,end) {
 
             const labels = data.map(item => {
                 let key = item.id;
-                let key_formatted = key.replaceAll("_", " ").replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
-                return key_formatted;
+                return key.replaceAll("_", " ").replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
             });
 
             const keys = Object.keys(data[0].value);
             const datasets = keys.map((key, index) => {
-                let label = key;
-                let key_formatted = label.replaceAll("_", " ").replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+                let key_formatted = key.replaceAll("_", " ").replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
                 if (key.startsWith('pred'))
                     key_formatted = key_formatted.substring(4);
 
@@ -411,7 +406,7 @@ function show_appliances_consumptions_graph(labels, datasets){
 
 }
 
-button_query_appliances_consumptions.addEventListener('click', function (event) {
+button_query_appliances_consumptions.addEventListener('click', function () {
     //div_list_appliances_consumptions_list.innerHTML = SPINER;
 
     appliances_consumptions_graph(appliances_consumption_start.value, appliances_consumption_end.value);
