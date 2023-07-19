@@ -1,7 +1,8 @@
 {
   "lang": "en-us",
   "name": "Clean Emon",
-  "description": "This app lets you review your sensors and get interesting statistics .",
+  "short_name": "Clean Emon",
+  "description": "Track and analyze energy data for home appliances with Clean Emon app.",
   "start_url": "/index.html",
   "background_color": "#fafafa",
   "theme_color": "#1976d2",
