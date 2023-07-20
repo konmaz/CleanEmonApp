@@ -13,17 +13,12 @@ The application enables users to see the following:
 A PWA is a progressive web app, which is a web app that can be installed on a device and used like a native app. PWAs are progressive because they can be used on any device with a web browser, even if the device does not have internet connectivity. They are web apps because they are built using web technologies, such as HTML, CSS, and JavaScript. And they are apps because they can provide a native app-like experience to users, which includes features such as push notifications, offline access, and an icon on the device's home screen.
 
 # Screenshots
-| Image alt text | Image path |
-|---|---|
-| This is my image | /repo_images/home.png |
-| This is another image | /repo_images/home.png |
-
 
 The app supports dynamic themes
-
-<img src="/repo_images/white_theme.png" alt="CleanEmon PWA white theme" width="200"/>
-<img src="/repo_images/dark_theme.png" alt="CleanEmon PWA dark theme" width="200"/>
-
+<div>
+<img src="/repo_images/white_theme.png" alt="CleanEmon PWA white theme" width="50%"/>
+<img src="/repo_images/dark_theme.png" alt="CleanEmon PWA dark theme" width="50%"/>
+</div>
 
 # How to deploy
 TODO 
