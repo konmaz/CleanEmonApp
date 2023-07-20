@@ -12,27 +12,27 @@ The application enables users to see the following:
 
 ## The app displays energy consumption in a concise format.
 
-<div style="display: flex; flex-direction: row;">
+<div style="display: flex; flex-direction: row; justify-content: center;">
   <img src="/repo_images/home.png" alt="CleanEmon PWA Dashboard" width="40%"/>
 </div>
 
 ## The app displays energy consumption graphs (using Chart.js) in a specified time period and per home appliance.
 
-<div style="display: flex; flex-direction: row;">
+<div style="display: flex; flex-direction: row; justify-content: center;">
   <img src="/repo_images/charts1.png" alt="CleanEmon PWA login" width="40%"/>
   <img src="/repo_images/charts2.png" alt="CleanEmon PWA register" width="40%"/>
 </div>
 
 ## Metadata, which can be viewed and edited 
 
-<div style="display: flex; flex-direction: row;">
+<div style="display: flex; flex-direction: row; justify-content: center;">
   <img src="/repo_images/metadata.png" alt="CleanEmon PWA metadata" width="40%"/>
   <img src="/repo_images/metadata_popup.png" alt="CleanEmon PWA metadata popup" width="40%"/>
 </div>
 
 ## The app supports authentication and registration
 
-<div style="display: flex; flex-direction: row;">
+<div style="display: flex; flex-direction: row; justify-content: center;">
   <img src="/repo_images/home_login.png" alt="CleanEmon PWA login" width="40%"/>
   <img src="/repo_images/register.png" alt="CleanEmon PWA register" width="40%"/>
 </div>
@@ -40,7 +40,7 @@ The application enables users to see the following:
 
 ## The app supports dynamic themes
 
-<div style="display: flex; flex-direction: row;">
+<div style="display: flex; flex-direction: row; justify-content: center;">
   <img src="/repo_images/white_theme.png" alt="CleanEmon PWA white theme" width="40%"/>
   <img src="/repo_images/dark_theme.png" alt="CleanEmon PWA dark theme" width="40%"/>
 </div>
