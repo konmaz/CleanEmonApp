@@ -14,11 +14,35 @@ A PWA is a progressive web app, which is a web app that can be installed on a de
 
 # Screenshots
 
+*The app shows energy consumptions in a compact form*
+
+<div style="display: flex; flex-direction: row;">
+  <img src="/repo_images/home.png" alt="CleanEmon PWA Dashboard" width="45%"/>
+</div>
+
+*The app shows energy consumptions in graphs using Chart.js and consumption per device*
+
+<div style="display: flex; flex-direction: row;">
+  <img src="/repo_images/charts1.png" alt="CleanEmon PWA login" width="45%"/>
+  <img src="/repo_images/charts2.png" alt="CleanEmon PWA register" width="45%"/>
+</div>
+
+*Metadata, which can be viewed and edited*
+
+<div style="display: flex; flex-direction: row;">
+  <img src="/repo_images/metadata.png" alt="CleanEmon PWA login" width="45%"/>
+  <img src="/repo_images/metadata_popup.png" alt="CleanEmon PWA register" width="45%"/>
+</div>
+
+
+
+
+
 *The app supports authentication and registration*
 
 <div style="display: flex; flex-direction: row;">
-  <img src="/repo_images/home_login.png" alt="CleanEmon PWA white theme" width="45%"/>
-  <img src="/repo_images/register.png" alt="CleanEmon PWA dark theme" width="45%"/>
+  <img src="/repo_images/home_login.png" alt="CleanEmon PWA login" width="45%"/>
+  <img src="/repo_images/register.png" alt="CleanEmon PWA register" width="45%"/>
 </div>
 
 
