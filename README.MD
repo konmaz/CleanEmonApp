@@ -14,31 +14,27 @@ A PWA is a progressive web app, which is a web app that can be installed on a de
 
 # Screenshots
 
-*The app shows energy consumptions in a compact form*
+## The app displays energy consumption in a concise format.
 
 <div style="display: flex; flex-direction: row;">
   <img src="/repo_images/home.png" alt="CleanEmon PWA Dashboard" width="45%"/>
 </div>
 
-*The app shows energy consumptions in graphs using Chart.js and consumption per device*
+## The app displays energy consumption graphs (using Chart.js) in a specified time period and per home appliance.
 
 <div style="display: flex; flex-direction: row;">
   <img src="/repo_images/charts1.png" alt="CleanEmon PWA login" width="45%"/>
   <img src="/repo_images/charts2.png" alt="CleanEmon PWA register" width="45%"/>
 </div>
 
-*Metadata, which can be viewed and edited*
+## Metadata, which can be viewed and edited 
 
 <div style="display: flex; flex-direction: row;">
   <img src="/repo_images/metadata.png" alt="CleanEmon PWA login" width="45%"/>
   <img src="/repo_images/metadata_popup.png" alt="CleanEmon PWA register" width="45%"/>
 </div>
 
-
-
-
-
-*The app supports authentication and registration*
+## The app supports authentication and registration
 
 <div style="display: flex; flex-direction: row;">
   <img src="/repo_images/home_login.png" alt="CleanEmon PWA login" width="45%"/>
@@ -46,7 +42,7 @@ A PWA is a progressive web app, which is a web app that can be installed on a de
 </div>
 
 
-*The app supports dynamic themes*
+## The app supports dynamic themes
 
 <div style="display: flex; flex-direction: row;">
   <img src="/repo_images/white_theme.png" alt="CleanEmon PWA white theme" width="45%"/>
