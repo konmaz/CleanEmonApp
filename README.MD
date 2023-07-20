@@ -14,12 +14,21 @@ A PWA is a progressive web app, which is a web app that can be installed on a de
 
 # Screenshots
 
-The app supports dynamic themes
+## The app supports authentication and registration
+
+<div style="display: flex; flex-direction: row;">
+  <img src="/repo_images/home_login.png" alt="CleanEmon PWA white theme" width="45%"/>
+  <img src="/repo_images/register.png" alt="CleanEmon PWA dark theme" width="45%"/>
+</div>
+
+
+## The app supports dynamic themes
 
 <div style="display: flex; flex-direction: row;">
   <img src="/repo_images/white_theme.png" alt="CleanEmon PWA white theme" width="45%"/>
   <img src="/repo_images/dark_theme.png" alt="CleanEmon PWA dark theme" width="45%"/>
 </div>
+
 
 # How to deploy
 TODO 
